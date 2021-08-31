@@ -377,7 +377,7 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
             playIntent.setAction(ACTION_PLAY);
             PendingIntent playPendingIntent = PendingIntent.getService(this, 0, playIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 ActivityManager activityManager = (ActivityManager) this.getSystemService(ACTIVITY_SERVICE);
                 if (activityManager != null) {
                     Intent target = null;

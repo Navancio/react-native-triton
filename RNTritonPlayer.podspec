@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "RNTritonPlayer"
-  s.version      = "1.1.7"
+  s.version      = "1.1.8"
   s.summary      = "RNTritonPlayer"
   s.description  = <<-DESC
                   Triton Player library for React-Native

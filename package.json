@@ -1,6 +1,6 @@
 {
   "name": "react-native-triton-player",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -12,11 +12,11 @@
   "author": "",
   "license": "",
   "peerDependencies": {
-    "react": "16.6.3",
-    "react-native": "^0.57.8"
+    "react": "17.0.2",
+    "react-native": "^0.65.1"
   },
   "devDependencies": {
-    "react": "16.6.3",
-    "react-native": "^0.57.8"
+    "react": "17.0.2",
+    "react-native": "^0.65.1"
   }
 }

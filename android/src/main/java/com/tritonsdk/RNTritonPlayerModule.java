@@ -19,6 +19,7 @@ import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.tritonsdk.impl.PlayerService;
 import com.tritonsdk.impl.Stream;
 import com.tritonsdk.impl.Track;
+import com.tritonsdk.impl.OnDemandStream;
 
 import static android.content.Context.BIND_AUTO_CREATE;
 

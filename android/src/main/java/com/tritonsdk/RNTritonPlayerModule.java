@@ -73,6 +73,21 @@ public class RNTritonPlayerModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void playOnDemandStream(String streamURL) {
+        initPlayer();
+
+        if (mService != null) {
+            mService.stop();
+        }
+
+        Intent intent = new Intent(reactContext, PlayerService.class);
+        intent.setAction(PlayerService.ACTION_PLAY);
+        intent.putExtra(PlayerService.ARG_ON_DEMAND_STREAM, new OnDemandStream(streamURL));
+        reactContext.bindService(intent, mServiceConnection, BIND_AUTO_CREATE);
+        reactContext.startService(intent);
+    }
+
+    @ReactMethod
     public void pause() {
         if (mService != null) {
             mService.pause();

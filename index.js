@@ -1,5 +1,4 @@
-import {NativeModules} from 'react-native';
-import {Platform, NativeEventEmitter, DeviceEventEmitter} from 'react-native';
+import { DeviceEventEmitter, NativeEventEmitter, NativeModules, Platform } from "react-native";
 
 const NativeRNTritonPlayer = NativeModules.RNTritonPlayer;
 
@@ -9,25 +8,29 @@ class RNTritonPlayer {
         NativeRNTritonPlayer.configure(brand)
     }
 
-    static play(tritonName, tritonMount) {
-        NativeRNTritonPlayer.play(tritonName, tritonMount);
-    }
+	static play(tritonName, tritonMount) {
+		NativeRNTritonPlayer.play(tritonName, tritonMount);
+	}
 
-    static pause() {
-        NativeRNTritonPlayer.pause();
-    }
+	static pause() {
+		NativeRNTritonPlayer.pause();
+	}
 
-    static unPause() {
-        NativeRNTritonPlayer.unPause();
-    }
+	static unPause() {
+		NativeRNTritonPlayer.unPause();
+	}
 
-    static stop() {
-        NativeRNTritonPlayer.stop();
-    }
+	static playOnDemandStream(trackURL) {
+		NativeRNTritonPlayer.playOnDemandStream(trackURL);
+	}
 
-    static quit() {
-        NativeRNTritonPlayer.quit();
-    }
+	static stop() {
+		NativeRNTritonPlayer.stop();
+	}
+
+	static quit() {
+		NativeRNTritonPlayer.quit();
+	}
 
     static addStreamChangeListener(callback) {
         if (Platform.OS === 'ios') {

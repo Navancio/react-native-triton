@@ -33,6 +33,7 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
 
     // Constants
     public static final String ARG_STREAM = "stream";
+    public static final String ARG_ON_DEMAND_STREAM = "on_demand_stream";
     public static final String ARG_TRACK = "track";
     public static final String ARG_STATE = "state";
     public static final String DEFAULT_CHANNEL = "default";
@@ -54,6 +55,7 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
     // Player
     private TritonPlayer mPlayer;
     private Stream mCurrentStream;
+    private OnDemandStream mCurrentOnDemandStream;
     private Track mCurrentTrack;
 
     // Notification
@@ -78,7 +80,16 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
                         mCurrentStream = (Stream) intent.getSerializableExtra(ARG_STREAM);
                         notifyStationUpdate();
                         mCurrentTrack = null;
+                        mCurrentOnDemandStream = null;
                         notifyTrackUpdate();
+                    }
+                    else if (intent.hasExtra(ARG_ON_DEMAND_STREAM)) {
+                        mCurrentOnDemandStream = (OnDemandStream) intent.getSerializableExtra(ARG_ON_DEMAND_STREAM);
+                        //notifyStationUpdate();
+                        //TODO maybe fire an event here somehow?
+                        mCurrentTrack = null;
+                        mCurrentStream = null;
+                        //notifyTrackUpdate();
                     }
 
                     play();
@@ -114,14 +125,22 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
     }
 
     private void playMedia() {
-        if (mCurrentStream == null) return;
+        if (mCurrentStream == null && mCurrentOnDemandStream == null) return;
 
         String[] tTags = {"PLAYER:NOPREROLL"};
 
         Bundle settings = new Bundle();
         settings.putString(TritonPlayer.SETTINGS_STATION_BROADCASTER, "Triton Digital");
-        settings.putString(TritonPlayer.SETTINGS_STATION_NAME, mCurrentStream.getTritonName());
-        settings.putString(TritonPlayer.SETTINGS_STATION_MOUNT, mCurrentStream.getTritonMount());
+
+        if (mCurrentStream != null)
+        {
+            settings.putString(TritonPlayer.SETTINGS_STATION_NAME, mCurrentStream.getTritonName());
+            settings.putString(TritonPlayer.SETTINGS_STATION_MOUNT, mCurrentStream.getTritonMount());
+        }
+        else if (mCurrentOnDemandStream != null) {
+            settings.putString(TritonPlayer.SETTINGS_STREAM_URL, mCurrentOnDemandStream.getURL());
+        }
+
         settings.putString(TritonPlayer.SETTINGS_PLAYER_SERVICES_REGION, "EU");
         settings.putBoolean(TritonPlayer.SETTINGS_TARGETING_LOCATION_TRACKING_ENABLED, true);
         settings.putStringArray(TritonPlayer.SETTINGS_TTAGS, tTags);
@@ -155,7 +174,7 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
     }
 
     public void play() {
-        if (mCurrentStream == null) return;
+        if (mCurrentStream == null && mCurrentOnDemandStream == null) return;
         releasePlayer();
         playMedia();
         showNotification();

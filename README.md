@@ -1,6 +1,8 @@
 
 # react-native-triton-player
 
+A react-native native module wrapper around the Triton [iOS](https://github.com/tritondigital/ios-sdk) and [Android](https://github.com/tritondigital/android-sdk) SDKs.
+
 ## Getting started
 
 `$ npm install react-native-triton-player --save`

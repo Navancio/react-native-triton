@@ -71,6 +71,45 @@ RCT_EXPORT_METHOD(play:(NSString *)tritonName tritonStation:(NSString *)tritonSt
     [self sendEventWithName:EventStreamChanged body:@{@"stream": tritonStation}];
 }
 
+RCT_EXPORT_METHOD(playOnDemandStream:(NSString *)streamURL )
+{
+    // Init Triton Player if its not set yet
+    if (self.tritonPlayer == NULL) {
+        self.tritonPlayer = [[TritonPlayer alloc] initWithDelegate:self andSettings:nil];
+        self.track = @"-";
+        self.title = @"-";
+        self.state = 0;
+    }
+    
+    // Set on demand Stream URL Details
+    NSDictionary *settings = @{
+                               SettingsContentURLKey: streamURL,
+                               SettingsBroadcasterKey : @"Triton Digital",
+                               SettingsPlayerServicesRegion: @"EU",
+                               SettingsEnableLocationTrackingKey : @(NO),
+                               SettingsTtagKey : @[@"PLAYER:NOPREROLL"]
+                               };
+    
+    // mm
+    
+    // Stop Current Stream (if playing)
+    //if ([self.tritonPlayer isExecuting]) {
+    [self.tritonPlayer stop];
+    //}
+    
+    // Setup stuff
+    [self configureRemoteCommandHandling];
+    
+    // Update Triton Player settings
+    [self.tritonPlayer updateSettings:settings];
+    
+    // Start Playing!
+    [self.tritonPlayer play];
+    
+    // Notify stream change
+    //[self sendEventWithName:EventStreamChanged body:@{@"stream": tritonStation}];
+}
+
 RCT_EXPORT_METHOD(stop)
 {
     if (self.tritonPlayer != NULL) {

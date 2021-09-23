@@ -1,4 +1,3 @@
-
 # react-native-triton-player
 
 A react-native native module wrapper around the Triton [iOS](https://github.com/tritondigital/ios-sdk) and [Android](https://github.com/tritondigital/android-sdk) SDKs.
@@ -13,7 +12,6 @@ A react-native native module wrapper around the Triton [iOS](https://github.com/
 
 ### Manual installation
 
-
 #### iOS
 
 1. In XCode, in the project navigator, right click `Libraries` ➜ `Add Files to [your project's name]`
@@ -24,24 +22,44 @@ A react-native native module wrapper around the Triton [iOS](https://github.com/
 #### Android
 
 1. Open up `android/app/src/main/java/[...]/MainActivity.java`
-  - Add `import com.tritonsdk.RNTritonPlayerPackage;` to the imports at the top of the file
-  - Add `new RNTritonPlayerPackage()` to the list returned by the `getPackages()` method
-2. Append the following lines to `android/settings.gradle`:
-  	```
-  	include ':react-native-triton-player'
-  	project(':react-native-triton-player').projectDir = new File(rootProject.projectDir, 	'../node_modules/react-native-triton-player/android')
-  	```
-3. Insert the following lines inside the dependencies block in `android/app/build.gradle`:
-  	```
-      compile project(':react-native-triton-player')
-  	```
 
+- Add `import com.tritonsdk.RNTritonPlayerPackage;` to the imports at the top of the file
+- Add `new RNTritonPlayerPackage()` to the list returned by the `getPackages()` method
+
+2. Append the following lines to `android/settings.gradle`:
+   ```
+   include ':react-native-triton-player'
+   project(':react-native-triton-player').projectDir = new File(rootProject.projectDir, 	'../node_modules/react-native-triton-player/android')
+   ```
+3. Insert the following lines inside the dependencies block in `android/app/build.gradle`:
+   ```
+     compile project(':react-native-triton-player')
+   ```
 
 ## Usage
-```javascript
-import RNTritonPlayer from 'react-native-triton-player';
 
-// TODO: What to do with the module?
-RNTritonPlayer;
+```javascript
+import RNTritonPlayer from "react-native-triton-player";
+
+RNTritonPlayer.playOnDemandStream(onDemandStreamUrl);
+
+RNTritonPlayer.play(tritonName, tritonMount);
+
+RNTritonPlayer.pause();
+
+RNTritonPlayer.unPause();
+
+RNTritonPlayer.stop();
+
+addStreamChangeListener((currentTritonStreamData) => {
+	//do something with currentTritonStreamData when it changes
+});
+
+addTrackChangeListener((currentTritonTrackData) => {
+	//do something with currentTritonTrackData when it changes
+});
+
+addStateChangeListener((currentTritonStateData) => {
+	//do something with currentTritonStateData when it changes
+});
 ```
-  

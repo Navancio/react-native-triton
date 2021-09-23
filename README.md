@@ -51,15 +51,15 @@ RNTritonPlayer.unPause();
 
 RNTritonPlayer.stop();
 
-addStreamChangeListener((currentTritonStreamData) => {
+RNTritonPlayer.addStreamChangeListener((currentTritonStreamData) => {
 	//do something with currentTritonStreamData when it changes
 });
 
-addTrackChangeListener((currentTritonTrackData) => {
+RNTritonPlayer.addTrackChangeListener((currentTritonTrackData) => {
 	//do something with currentTritonTrackData when it changes
 });
 
-addStateChangeListener((currentTritonStateData) => {
+RNTritonPlayer.addStateChangeListener((currentTritonStateData) => {
 	//do something with currentTritonStateData when it changes
 });
 ```

@@ -32,6 +32,10 @@ class RNTritonPlayer {
 		NativeRNTritonPlayer.quit();
 	}
 
+	static setVolume(int_vol) {
+		NativeRNTritonPlayer.setVolume(int_vol);
+	}
+
     static addStreamChangeListener(callback) {
         if (Platform.OS === 'ios') {
             const tritonEmitter = new NativeEventEmitter(NativeRNTritonPlayer);

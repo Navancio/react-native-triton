@@ -21,7 +21,7 @@ android {
         minSdkVersion 27
         targetSdkVersion 29
         versionCode 1
-        versionName "1.1.16"
+        versionName "1.1.17"
     }
     lintOptions {
         abortOnError false
@@ -54,7 +54,8 @@ dependencies {
     implementation 'com.android.support:support-annotations:28.0.0'
     implementation 'androidx.annotation:annotation:1.2.0'
 //    implementation project("./libs")
+	artifacts.add("default", file("./libs/triton-android-sdk-3.1.1.aar"))
 }
 
 
-artifacts.add("default", file("./libs/triton-android-sdk-3.1.1.aar"))
+

@@ -21,7 +21,7 @@ android {
         minSdkVersion 27
         targetSdkVersion 29
         versionCode 1
-        versionName "1.1.18"
+        versionName "1.1.19"
     }
     lintOptions {
         abortOnError false
@@ -43,19 +43,19 @@ repositories {
 dependencies {
 
 //	implementation files('./libs/triton-android-sdk-3.1.1.aar')
-    implementation fileTree(dir: "libs", include: ["*.aar"])
+    implementation fileTree(dir: "./libs", include: ["*.aar"])
     implementation (name:'triton-android-sdk-3.1.1', ext:'aar')
 
     implementation 'com.facebook.react:react-native:0.20.1'
 
     implementation 'com.google.android.gms:play-services-base:17.6.0'
-    implementation 'com.google.android.gms:play-services-ads:20.3.0'
+    implementation 'com.google.android.gms:play-services-ads:20.5.0'
 
-    implementation 'com.google.android.exoplayer:exoplayer-core:2.15.0'
-    implementation 'com.google.android.exoplayer:exoplayer-hls:2.15.0'
+    implementation 'com.google.android.exoplayer:exoplayer-core:2.16.1'
+    implementation 'com.google.android.exoplayer:exoplayer-hls:2.16.1'
 
     implementation 'com.android.support:support-annotations:28.0.0'
-    implementation 'androidx.annotation:annotation:1.2.0'
+    implementation 'androidx.annotation:annotation:1.3.0'
 //    implementation project("./libs")
 
 }

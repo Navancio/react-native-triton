@@ -21,7 +21,7 @@ android {
         minSdkVersion 27
         targetSdkVersion 29
         versionCode 1
-        versionName "1.1.21"
+        versionName "1.1.23"
     }
     lintOptions {
         abortOnError false
@@ -42,7 +42,7 @@ repositories {
 
 dependencies {
 
-//	implementation files('./libs/triton-android-sdk-3.1.1.aar')
+	implementation files('./libs/triton-android-sdk-3.1.1.aar')
 //    implementation fileTree(dir: "./libs", include: ["*.aar"])
 //    implementation (name:'triton-android-sdk-3.1.1', ext:'aar')
 

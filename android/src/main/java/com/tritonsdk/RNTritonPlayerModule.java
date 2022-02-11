@@ -114,6 +114,9 @@ public class RNTritonPlayerModule extends ReactContextBaseJavaModule {
         if (mService != null) {
             return mService.getPosition();
         }
+        else{
+            return -1;
+        }
     }
 
     @ReactMethod

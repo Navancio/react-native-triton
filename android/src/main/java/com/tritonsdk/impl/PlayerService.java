@@ -206,6 +206,12 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
         mPlayer = null;
     }
 
+    public int getPosition()
+    {
+        if (mPlayer == null) return -1;
+        return mPlayer.getPosition();
+    }
+
     public void seek(int offset)
     {
         if (mPlayer == null) return;

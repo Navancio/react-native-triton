@@ -110,6 +110,13 @@ public class RNTritonPlayerModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public int getPosition() {
+        if (mService != null) {
+            return mService.getPosition();
+        }
+    }
+
+    @ReactMethod
     public void seek(int offset) {
         if (mService != null) {
             mService.seek(offset);

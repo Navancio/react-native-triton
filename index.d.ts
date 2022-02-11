@@ -1,25 +1,27 @@
-declare module "react-native-triton-player" {
-	//export function configure({brand});
+declare module 'react-native-triton-player' {
+  //export function configure({brand});
 
-	export function play(tritonName, tritonMount);
+  export function play(tritonName, tritonMount);
 
-	export function playOnDemandStream(trackURL);
+  export function playOnDemandStream(trackURL);
 
-	export function pause();
+  export function pause();
 
-	export function unPause();
+  export function unPause();
 
-	export function stop();
+  export function stop();
 
-	export function quit();
+  export function quit();
 
-	export function seek(offset);
+  export function getPosition();
 
-	export function seekTo(offset);
+  export function seek(offset);
 
-	export function addStreamChangeListener(callback);
+  export function seekTo(offset);
 
-	export function addTrackChangeListener(callback);
+  export function addStreamChangeListener(callback);
 
-	export function addStateChangeListener(callback);
+  export function addTrackChangeListener(callback);
+
+  export function addStateChangeListener(callback);
 }

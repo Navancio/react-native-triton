@@ -1,70 +1,79 @@
-import { DeviceEventEmitter, NativeEventEmitter, NativeModules, Platform } from "react-native";
+import {
+  DeviceEventEmitter,
+  NativeEventEmitter,
+  NativeModules,
+  Platform,
+} from 'react-native';
 
 const NativeRNTritonPlayer = NativeModules.RNTritonPlayer;
 
 class RNTritonPlayer {
-	static configure({ brand }) {
-		NativeRNTritonPlayer.configure(brand);
-	}
+  static configure({brand}) {
+    NativeRNTritonPlayer.configure(brand);
+  }
 
-	static play(tritonName, tritonMount) {
-		NativeRNTritonPlayer.play(tritonName, tritonMount);
-	}
+  static play(tritonName, tritonMount) {
+    NativeRNTritonPlayer.play(tritonName, tritonMount);
+  }
 
-	static seek(offset) {
-		NativeRNTritonPlayer.seek(offset);
-	}
+  static getPosition() {
+    return NativeRNTritonPlayer.getPosition();
+  }
 
-	static seekTo(offset) {
-		NativeRNTritonPlayer.seekTo(offset);
-	}
+  static seek(offset) {
+    NativeRNTritonPlayer.seek(offset);
+  }
 
-	static pause() {
-		NativeRNTritonPlayer.pause();
-	}
+  static seekTo(offset) {
+    NativeRNTritonPlayer.seekTo(offset);
+  }
 
-	static unPause() {
-		NativeRNTritonPlayer.unPause();
-	}
+  static pause() {
+    NativeRNTritonPlayer.pause();
+  }
 
-	static playOnDemandStream(trackURL) {
-		NativeRNTritonPlayer.playOnDemandStream(trackURL);
-	}
+  static unPause() {
+    NativeRNTritonPlayer.unPause();
+  }
 
-	static stop() {
-		NativeRNTritonPlayer.stop();
-	}
+  static playOnDemandStream(trackURL) {
+    NativeRNTritonPlayer.playOnDemandStream(trackURL);
+  }
 
-	static quit() {
-		NativeRNTritonPlayer.quit();
-	}
+  static stop() {
+    NativeRNTritonPlayer.stop();
+  }
 
-	static addStreamChangeListener(callback) {
-		if (Platform.OS === "ios") {
-			const tritonEmitter = new NativeEventEmitter(NativeRNTritonPlayer);
-			tritonEmitter.addListener("streamChanged", callback);
-		} else {
-			DeviceEventEmitter.addListener("streamChanged", callback);
-		}
-	}
+  static quit() {
+    NativeRNTritonPlayer.quit();
+  }
 
-	static addTrackChangeListener(callback) {
-		if (Platform.OS === "ios") {
-			const tritonEmitter = new NativeEventEmitter(NativeRNTritonPlayer);
-			tritonEmitter.addListener("trackChanged", callback);
-		} else {
-			DeviceEventEmitter.addListener("trackChanged", callback);
-		}
-	}
+  static addStreamChangeListener(callback) {
+    if (Platform.OS === 'ios') {
+      const tritonEmitter = new NativeEventEmitter(NativeRNTritonPlayer);
+      tritonEmitter.addListener('streamChanged', callback);
+    } else {
+      DeviceEventEmitter.addListener('streamChanged', callback);
+    }
+  }
 
-	static addStateChangeListener(callback) {
-		if (Platform.OS === "ios") {
-			const tritonEmitter = new NativeEventEmitter(NativeRNTritonPlayer);
-			tritonEmitter.addListener("stateChanged", callback);
-		} else {
-			DeviceEventEmitter.addListener("stateChanged", callback);
-		}
-	}
+  static addTrackChangeListener(callback) {
+    if (Platform.OS === 'ios') {
+      const tritonEmitter = new NativeEventEmitter(NativeRNTritonPlayer);
+      tritonEmitter.addListener('trackChanged', callback);
+    } else {
+      DeviceEventEmitter.addListener('trackChanged', callback);
+    }
+  }
+
+  static addStateChangeListener(callback) {
+    if (Platform.OS === 'ios') {
+      const tritonEmitter = new NativeEventEmitter(NativeRNTritonPlayer);
+      tritonEmitter.addListener('stateChanged', callback);
+    } else {
+      DeviceEventEmitter.addListener('stateChanged', callback);
+    }
+  }
 }
 
 export default RNTritonPlayer;

@@ -132,6 +132,8 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
         Bundle settings = new Bundle();
         settings.putString(TritonPlayer.SETTINGS_STATION_BROADCASTER, "Triton Digital");
 
+        settings.putBoolean(TritonPlayer.SETTINGS_TIMESHIFT_ENABLED, true);
+
         if (mCurrentStream != null)
         {
             settings.putString(TritonPlayer.SETTINGS_STATION_NAME, mCurrentStream.getTritonName());
@@ -202,6 +204,18 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
         }
         mPlayer.release();
         mPlayer = null;
+    }
+
+    public void seek(int offset)
+    {
+        if (mPlayer == null) return;
+        mPlayer.seek(offset);
+    }
+
+    public void seekTo(int offset)
+    {
+        if (mPlayer == null) return;
+        mPlayer.seekTo(offset);
     }
 
     public void pause() {

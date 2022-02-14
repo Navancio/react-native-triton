@@ -110,6 +110,13 @@ RCT_EXPORT_METHOD(playOnDemandStream:(NSString *)streamURL )
     //[self sendEventWithName:EventStreamChanged body:@{@"stream": tritonStation}];
 }
 
+RCT_EXPORT_METHOD(seek:(NSInteger *)offset)
+{
+    if (self.tritonPlayer != NULL) {
+        [self.tritonPlayer seekToTimeInterval:offset];
+    }
+}
+
 RCT_EXPORT_METHOD(stop)
 {
     if (self.tritonPlayer != NULL) {

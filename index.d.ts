@@ -13,7 +13,7 @@ declare module "react-native-triton-player" {
 
 	export function quit();
 
-	export function getCurrentPlaybackTime();
+	export function getCurrentPlaybackTime(successCallback, errorCallback);
 
 	export function seek(offset);
 
@@ -24,4 +24,6 @@ declare module "react-native-triton-player" {
 	export function addTrackChangeListener(callback);
 
 	export function addStateChangeListener(callback);
+
+	export function addCurrentPlaybackTimeChangeListener(callback);
 }

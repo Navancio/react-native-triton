@@ -4,6 +4,7 @@
 NSString* const EventTrackChanged = @"trackChanged";
 NSString* const EventStreamChanged = @"streamChanged";
 NSString* const EventStateChanged = @"stateChanged";
+NSString* const EventCurrentPlaybackTimeChanged = @"currentPlaybackTimeChanged";
 
 const NSInteger STATE_COMPLETED = 200;
 const NSInteger STATE_CONNECTING = 201;
@@ -23,7 +24,7 @@ RCT_EXPORT_MODULE()
 
 - (NSArray<NSString *> *)supportedEvents
 {
-    return @[EventTrackChanged, EventStreamChanged, EventStateChanged];
+    return @[EventTrackChanged, EventStreamChanged, EventStateChanged, EventCurrentPlaybackTimeChanged];
 }
 
 RCT_EXPORT_METHOD(configure:(NSString *)brand)
@@ -110,10 +111,32 @@ RCT_EXPORT_METHOD(playOnDemandStream:(NSString *)streamURL )
     //[self sendEventWithName:EventStreamChanged body:@{@"stream": tritonStation}];
 }
 
-RCT_EXPORT_METHOD(getCurrentPlaybackTime)
+RCT_EXPORT_METHOD(getCurrentPlaybackTime:successCallback:(RCTResponseSenderBlock)successCallback
+    errorCallback:(RCTResponseSenderBlock)errorCallback
+    )
 {
-    if (self.tritonPlayer != NULL) {
-        return [self.tritonPlayer currentPlaybackTime];
+    @try {
+
+        if (self.tritonPlayer != NULL) {
+            //NSTimeInterval temp = [self.tritonPlayer currentPlaybackTime];
+
+    //        NSDictionary *output = @{
+    //                                SettingsStationNameKey: [NSNumber [self.tritonPlayer currentPlaybackTime]]
+    //                               };
+
+            NSTimeInterval offset = [self.tritonPlayer currentPlaybackTime];
+
+            [self sendEventWithName:EventCurrentPlaybackTimeChanged body:@{@"offset": [NSNumber numberWithInt:offset]}];
+
+            NSNumber *eventId = [NSNumber numberWithInt:offset];
+            successCallback(@[eventId]);
+            //callback(@[[NSNumber [self.tritonPlayer currentPlaybackTime]]]);
+
+
+        }
+    }
+    @catch(NSException *e) {
+        errorCallback(@[e]);
     }
 }
 

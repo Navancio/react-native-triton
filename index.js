@@ -11,8 +11,18 @@ class RNTritonPlayer {
 		NativeRNTritonPlayer.play(tritonName, tritonMount);
 	}
 
-	static getCurrentPlaybackTime() {
-		return NativeRNTritonPlayer.getCurrentPlaybackTime();
+	static getCurrentPlaybackTime(successCallback, errorCallback) {
+		if (Platform.OS === "ios") {
+			NativeRNTritonPlayer.getCurrentPlaybackTime((successValue)=> {
+				console.log('successValue', successValue);
+				successCallback(successValue);
+			},(errorValue) => {
+				console.log('errorValue', errorValue);
+				errorCallback(errorValue);
+			});
+		} else {
+			console.log('getCurrentPlaybackTime result', -1);
+		}
 	}
 
 	static seek(offset) {
@@ -69,6 +79,17 @@ class RNTritonPlayer {
 			DeviceEventEmitter.addListener("stateChanged", callback);
 		}
 	}
+
+	static addCurrentPlaybackTimeChangeListener(callback) {
+		if (Platform.OS === "ios") {
+			const tritonEmitter = new NativeEventEmitter(NativeRNTritonPlayer);
+			tritonEmitter.addListener("currentPlaybackTimeChanged", callback);
+		} else {
+			DeviceEventEmitter.addListener("currentPlaybackTimeChanged", callback);
+		}
+	}
+	//
+
 }
 
 export default RNTritonPlayer;

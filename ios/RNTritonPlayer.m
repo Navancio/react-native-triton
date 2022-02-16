@@ -111,8 +111,8 @@ RCT_EXPORT_METHOD(playOnDemandStream:(NSString *)streamURL )
     //[self sendEventWithName:EventStreamChanged body:@{@"stream": tritonStation}];
 }
 
-RCT_EXPORT_METHOD(getCurrentPlaybackTime:successCallback:(RCTResponseSenderBlock)successCallback
-    errorCallback:(RCTResponseSenderBlock)errorCallback
+RCT_EXPORT_METHOD(getCurrentPlaybackTime:(RCTResponseSenderBlock)successCallback
+    withErrorCallback:(RCTResponseSenderBlock)errorCallback
     )
 {
     @try {

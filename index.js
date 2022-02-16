@@ -13,18 +13,15 @@ class RNTritonPlayer {
 
 	static getCurrentPlaybackTime(successCallback, errorCallback) {
 		if (Platform.OS === "ios") {
-			NativeRNTritonPlayer.getCurrentPlaybackTime(
-				(successValue) => {
-					console.log("successValue", successValue);
-					successCallback(successValue);
-				},
-				(errorValue) => {
-					console.log("errorValue", errorValue);
-					errorCallback(errorValue);
-				}
-			);
+			NativeRNTritonPlayer.getCurrentPlaybackTime((successValue)=> {
+				//console.log('successValue', successValue);
+				successCallback(successValue);
+			},(errorValue) => {
+				//console.log('errorValue', errorValue);
+				errorCallback(errorValue);
+			});
 		} else {
-			console.log(`getCurrentPlaybackTime not supported on your platform '${Platform.OS}' yet`);
+			console.log('getCurrentPlaybackTime result', -1);
 		}
 	}
 
@@ -88,10 +85,11 @@ class RNTritonPlayer {
 			const tritonEmitter = new NativeEventEmitter(NativeRNTritonPlayer);
 			tritonEmitter.addListener("currentPlaybackTimeChanged", callback);
 		} else {
-			console.log(`currentPlaybackTimeChanged event not supported on your platform '${Platform.OS}' yet`);
+			DeviceEventEmitter.addListener("currentPlaybackTimeChanged", callback);
 		}
 	}
 	//
+
 }
 
 export default RNTritonPlayer;

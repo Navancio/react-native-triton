@@ -15,6 +15,7 @@ declare module "react-native-triton-player" {
 
 	export function getCurrentPlaybackTime(successCallback, errorCallback);
 
+	/** Seek by `offset` milliseconds [negative to seek back] */
 	export function seek(offset);
 
 	export function seekTo(offset);

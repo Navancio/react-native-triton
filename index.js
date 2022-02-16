@@ -21,16 +21,38 @@ class RNTritonPlayer {
 				errorCallback(errorValue);
 			});
 		} else {
-			console.log('getCurrentPlaybackTime result', -1);
+			console.log(`getCurrentPlaybackTime is not currently supported on your platform '${Platform.OS}'`);
 		}
 	}
 
+	/** Seek by `offset` milliseconds [negative to seek back] */
 	static seek(offset) {
-		NativeRNTritonPlayer.seek(offset);
+		if (Platform.OS === "ios") {
+			NativeRNTritonPlayer.getCurrentPlaybackTime((successValue) => {
+
+				let newOffset = offset + (successValue * 1000);
+				if (newOffset < 0)
+				{
+					newOffset = 0;
+				}
+
+				NativeRNTritonPlayer.seekTo(newOffset);
+			}, errorValue => {
+				console.log('error', errorValue);
+			});
+		}
+		else{
+			console.log(`seek is not currently supported on your platform '${Platform.OS}'`);
+		}
 	}
 
 	static seekTo(offset) {
-		NativeRNTritonPlayer.seekTo(offset);
+		if (Platform.OS === "ios") {
+			NativeRNTritonPlayer.seekTo(offset);
+		}
+		else{
+			console.log(`seekTo is not currently supported on your platform '${Platform.OS}'`);
+		}
 	}
 
 	static pause() {

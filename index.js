@@ -16,22 +16,17 @@ class RNTritonPlayer {
     NativeRNTritonPlayer.play(tritonName, tritonMount);
   }
 
+  /** Get current index [in seconds] of how far into a track we currently are - value is returned via the successCallback callback method */
   static getCurrentPlaybackTime(successCallback, errorCallback) {
-    if (Platform.OS === 'ios') {
+    if (Platform.OS === 'ios' || Platform.OS == 'android') {
       NativeRNTritonPlayer.getCurrentPlaybackTime(
         successValue => {
-          //ios returns this value in seconds - Android value comes back in milliseconds
-          successCallback(successValue);
-        },
-        errorValue => {
-          errorCallback(errorValue);
-        },
-      );
-    } else if (Platform.OS == 'android') {
-      NativeRNTritonPlayer.getCurrentPlaybackTime(
-        successValue => {
-          //Android value comes back in milliseconds - ios returns this value in seconds
-          successCallback(Math.floor(successValue / 1000));
+          //ios returns this value in seconds - Android value comes back in milliseconds - do the conversion here so we get a consistent output
+          successCallback(
+            Platform.OS == 'android'
+              ? Math.floor(successValue / 1000)
+              : successValue,
+          );
         },
         errorValue => {
           errorCallback(errorValue);
@@ -49,10 +44,29 @@ class RNTritonPlayer {
     if (Platform.OS === 'ios') {
       NativeRNTritonPlayer.getCurrentPlaybackTime(
         successValue => {
-          let newOffset = offset + successValue * 1000;
+          const currentOffsetMS = successValue * 1000;
+          let newOffset = offset + currentOffsetMS;
           if (newOffset < 0) {
             newOffset = 0;
           }
+
+          NativeRNTritonPlayer.seekTo(newOffset);
+        },
+        errorValue => {
+          console.log('error', errorValue);
+        },
+      );
+    } else if (Platform.OS === 'android') {
+      NativeRNTritonPlayer.getCurrentPlaybackTime(
+        successValue => {
+          const currentOffsetMS = successValue;
+          const offsetMS = offset;
+          let newOffset = offsetMS + currentOffsetMS;
+          if (newOffset < 0) {
+            newOffset = 0;
+          }
+
+          //console.log('test', {currentOffsetMS, offsetMS, newOffset});
 
           NativeRNTritonPlayer.seekTo(newOffset);
         },
@@ -69,6 +83,8 @@ class RNTritonPlayer {
 
   static seekTo(offset) {
     if (Platform.OS === 'ios') {
+      NativeRNTritonPlayer.seekTo(offset);
+    } else if (Platform.OS === 'android') {
       NativeRNTritonPlayer.seekTo(offset);
     } else {
       console.log(

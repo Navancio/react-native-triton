@@ -11,6 +11,7 @@ import android.os.IBinder;
 import androidx.annotation.Nullable;
 
 import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -110,13 +111,21 @@ public class RNTritonPlayerModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public int getPosition() {
-        if (mService != null) {
-            return mService.getPosition();
+    public void getCurrentPlaybackTime(Callback successCallBack, Callback errorCallBack) {
+
+        try {
+            if (mService != null) {
+                successCallBack.invoke(mService.getPosition());
+                //return mService.getPosition();
+            }
+            else{
+                successCallBack.invoke(-1);
+            }
+                
+        } catch (Exception ex) {
+            errorCallBack.invoke(ex);
         }
-        else{
-            return -1;
-        }
+
     }
 
     @ReactMethod

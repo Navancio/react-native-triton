@@ -29,6 +29,8 @@ public class RNTritonPlayerModule extends ReactContextBaseJavaModule {
     private static final String EVENT_STATE_CHANGED = "stateChanged";
     private static final String EVENT_STREAM_CHANGED = "streamChanged";
 
+    private static final String EVENT_CURRENT_PLAYBACK_TIME_CHANGED = "currentPlaybackTimeChanged";
+
     private final ReactApplicationContext reactContext;
 
     private PlayerService mService;
@@ -170,6 +172,13 @@ public class RNTritonPlayerModule extends ReactContextBaseJavaModule {
         sendEvent(EVENT_STATE_CHANGED, map);
     }
 
+    private void onPlaybackTimeChanged(int offset) {
+        WritableMap map = Arguments.createMap();
+        map.putInt("offset", offset);
+
+        sendEvent(EVENT_CURRENT_PLAYBACK_TIME_CHANGED, map);
+    }
+
     private void onTrackChanged(Track track) {
         WritableMap map = Arguments.createMap();
         map.putString("artist", track != null ? track.getArtist() : "-");
@@ -227,6 +236,9 @@ public class RNTritonPlayerModule extends ReactContextBaseJavaModule {
                 case PlayerService.EVENT_STATE_CHANGED:
                     int state = intent.getIntExtra(PlayerService.ARG_STATE, -1);
                     onStateChanged(state);
+                case PlayerService.EVENT_CURRENT_PLAYBACK_TIME_CHANGED:
+                    int offset = intent.getIntExtra(PlayerService.ARG_PLAY_OFFSET, -2);
+                    onPlaybackTimeChanged(offset);
             }
         }
     };

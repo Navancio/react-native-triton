@@ -145,7 +145,10 @@ class RNTritonPlayer {
       const tritonEmitter = new NativeEventEmitter(NativeRNTritonPlayer);
       tritonEmitter.addListener('currentPlaybackTimeChanged', callback);
     } else {
-      DeviceEventEmitter.addListener('currentPlaybackTimeChanged', callback);
+      DeviceEventEmitter.addListener('currentPlaybackTimeChanged', e => {
+        console.log('e', e);
+        callback(e);
+      });
     }
   }
   //

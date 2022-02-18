@@ -36,6 +36,7 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
     public static final String ARG_ON_DEMAND_STREAM = "on_demand_stream";
     public static final String ARG_TRACK = "track";
     public static final String ARG_STATE = "state";
+    public static final String ARG_PLAY_OFFSET = "play_offset";
     public static final String DEFAULT_CHANNEL = "default";
     public static final String ACTION_INIT = "PlayerService.ACTION_INIT";
     public static final String ACTION_PLAY = "PlayerService.ACTION_PLAY";
@@ -46,6 +47,7 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
     public static final String EVENT_TRACK_CHANGED = "PlayerService.EVENT_TRACK_CHANGED";
     public static final String EVENT_STREAM_CHANGED = "PlayerService.EVENT_STREAM_CHANGED";
     public static final String EVENT_STATE_CHANGED = "PlayerService.EVENT_STATE_CHANGED";
+    public static final String EVENT_CURRENT_PLAYBACK_TIME_CHANGED = "PlayerService.EVENT_CURRENT_PLAYBACK_TIME_CHANGED";
     public static final int NOTIFICATION_SERVICE = 8;
     public static String BRAND = "slam";
 
@@ -209,6 +211,9 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
     public int getPosition()
     {
         if (mPlayer == null) return -1;
+
+        //notifyPlaybackTimeUpdate();
+
         return mPlayer.getPosition();
     }
 
@@ -299,6 +304,15 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
                 notifyTrackUpdate();
                 break;
         }
+    }
+
+    private void notifyPlaybackTimeUpdate() {
+        if (mPlayer == null) {
+            return;
+        }
+        Intent intent = new Intent(EVENT_CURRENT_PLAYBACK_TIME_CHANGED);
+        intent.putExtra(ARG_PLAY_OFFSET, mPlayer.getPosition());
+        sendBroadcast(intent);
     }
 
     private void notifyTrackUpdate() {

@@ -231,31 +231,20 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
     }
 
     public void pause() {
-        Log.v("testing","PlayerService Pause inner 1");
         if (!isPlaying()) return;
-        Log.v("testing","PlayerService Pause inner 2");
         mPlayer.pause();
-        Log.v("testing","PlayerService Pause inner 3");
     }
 
     public void unPause() {
-        Log.v("testing","PlayerService Unpause inner 1");
         if (isPlaying()) return;
-        Log.v("testing","PlayerService Unpause inner 2");
         AudioManager audioManager = getAudioManager();
-        Log.v("testing","PlayerService Unpause inner 3");
         if (audioManager != null) {
-            Log.v("testing","PlayerService Unpause inner 4");
             int result = audioManager.requestAudioFocus(PlayerService.this, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
-            Log.v("testing","PlayerService Unpause inner 5");
             if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
-                Log.v("testing","PlayerService Unpause inner 6");
                 mPlayer.play();
             }
         }
-        Log.v("testing","PlayerService Unpause inner 7");
         showNotification();
-        Log.v("testing","PlayerService Unpause inner 8");
     }
 
     public void quit() {

@@ -134,8 +134,6 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
         Bundle settings = new Bundle();
         settings.putString(TritonPlayer.SETTINGS_STATION_BROADCASTER, "Triton Digital");
 
-        settings.putBoolean(TritonPlayer.SETTINGS_TIMESHIFT_ENABLED, true);
-
         if (mCurrentStream != null)
         {
             settings.putString(TritonPlayer.SETTINGS_STATION_NAME, mCurrentStream.getTritonName());
@@ -144,6 +142,7 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
         else if (mCurrentOnDemandStream != null) {
             settings.putString(TritonPlayer.SETTINGS_STREAM_URL, mCurrentOnDemandStream.getURL());
             settings.putBoolean(TritonPlayer.SETTINGS_FORCE_DISABLE_EXOPLAYER, true);
+            settings.putBoolean(TritonPlayer.SETTINGS_TIMESHIFT_ENABLED, true);
         }
 
         settings.putString(TritonPlayer.SETTINGS_PLAYER_SERVICES_REGION, "EU");

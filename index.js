@@ -8,7 +8,7 @@ import {
 const NativeRNTritonPlayer = NativeModules.RNTritonPlayer;
 
 class RNTritonPlayer {
-  static configure({brand}) {
+  static configure({ brand }) {
     NativeRNTritonPlayer.configure(brand);
   }
 
@@ -111,6 +111,9 @@ class RNTritonPlayer {
 
   static quit() {
     NativeRNTritonPlayer.quit();
+  }
+  static setNotificationStatus(status) {
+    NativeRNTritonPlayer.setNotificationStatus(status);
   }
 
   static addStreamChangeListener(callback) {

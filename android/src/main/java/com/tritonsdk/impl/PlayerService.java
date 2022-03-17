@@ -64,9 +64,8 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
     private NotificationCompat.Builder mBuilder;
     private RemoteViews mRemoteViews;
     private NotificationManager mNotificationManager;
-
     private MusicIntentReceiver mReceiver = new MusicIntentReceiver();
-
+    private boolean is_notification_active = true;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -252,6 +251,10 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
         stopForeground(true);
     }
 
+    public void setNotificationStatus(boolean status) {
+        is_notification_active = status;
+    }
+
     public Stream getCurrentStream() {
         return mCurrentStream;
     }
@@ -375,6 +378,9 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
 
     public void showNotification() {
         if (isShowingNotification()) {
+            return;
+        }
+        if(!is_notification_active){
             return;
         }
         mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);

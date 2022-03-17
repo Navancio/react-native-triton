@@ -35,6 +35,7 @@ public class RNTritonPlayerModule extends ReactContextBaseJavaModule {
 
     private PlayerService mService;
     private boolean mServiceBound;
+    private boolean is_notification_active = true;
 
     public RNTritonPlayerModule(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -64,11 +65,9 @@ public class RNTritonPlayerModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void play(String tritonName, String tritonMount) {
         initPlayer();
-
         if (mService != null) {
             mService.stop();
         }
-
         Intent intent = new Intent(reactContext, PlayerService.class);
         intent.setAction(PlayerService.ACTION_PLAY);
         intent.putExtra(PlayerService.ARG_STREAM, new Stream("", "", tritonName, tritonMount));
@@ -150,6 +149,13 @@ public class RNTritonPlayerModule extends ReactContextBaseJavaModule {
             mService.quit();
         }
     }
+    @ReactMethod
+    public void setNotificationStatus(boolean status) {
+
+//        mService.setNotificationStatus(status);
+        is_notification_active = status;
+    }
+
 
     private void sendEvent(String eventName,
                            @Nullable WritableMap params) {
@@ -194,6 +200,7 @@ public class RNTritonPlayerModule extends ReactContextBaseJavaModule {
         public void onServiceConnected(ComponentName name, IBinder binder) {
             mServiceBound = true;
             mService = ((PlayerService.LocalBinder) binder).getService();
+            mService.setNotificationStatus(is_notification_active);
 
             if (mService.getCurrentStream() != null) {
                 onStreamChanged(mService.getCurrentStream());

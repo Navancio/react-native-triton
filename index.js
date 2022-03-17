@@ -20,6 +20,11 @@ class RNTritonPlayer {
 		NativeRNTritonPlayer.unPause();
 	}
 
+  static setNotificationStatus(status) {
+		NativeRNTritonPlayer.setNotificationStatus(status);
+	}
+
+
 	static playOnDemandStream(trackURL) {
 		NativeRNTritonPlayer.playOnDemandStream(trackURL);
 	}

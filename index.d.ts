@@ -3,6 +3,8 @@ declare module 'react-native-triton-player' {
 
   export function play(tritonName, tritonMount);
 
+  export function setNotificationStatus(status);
+
   export function playOnDemandStream(trackURL);
 
   export function pause();

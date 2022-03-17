@@ -109,6 +109,13 @@ public class RNTritonPlayerModule extends ReactContextBaseJavaModule {
         }
     }
 
+   @ReactMethod
+    public void setNotificationStatus(boolean status) {
+        if (mService != null) {
+            mService.IS_NOTIF_ACTIVE = status
+        }
+    }
+
     @ReactMethod
     public void quit() {
         if (mService != null) {

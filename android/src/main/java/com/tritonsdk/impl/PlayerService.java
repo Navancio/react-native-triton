@@ -47,6 +47,7 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
     public static final String EVENT_STREAM_CHANGED = "PlayerService.EVENT_STREAM_CHANGED";
     public static final String EVENT_STATE_CHANGED = "PlayerService.EVENT_STATE_CHANGED";
     public static final int NOTIFICATION_SERVICE = 8;
+    public static final boolean IS_NOTIF_ACTIVE = false;
     public static String BRAND = "slam";
 
     // Binder
@@ -343,6 +344,10 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
         if (isShowingNotification()) {
             return;
         }
+        if (!IS_NOTIF_ACTIVE){
+            return 
+        }
+
         mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

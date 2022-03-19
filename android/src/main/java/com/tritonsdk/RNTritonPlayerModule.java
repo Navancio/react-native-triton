@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.IBinder;
+import android.util.Log;
+
 import androidx.annotation.Nullable;
 
 import com.facebook.react.bridge.Arguments;

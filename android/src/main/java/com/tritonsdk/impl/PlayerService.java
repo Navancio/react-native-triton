@@ -18,6 +18,8 @@ import android.os.IBinder;
 import android.os.Looper;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
+
+import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -151,6 +153,7 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
         mPlayer.setOnStateChangedListener(this);
         mPlayer.setOnCuePointReceivedListener(this);
         mPlayer.setOnMetaDataReceivedListener(this);
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -181,6 +184,7 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
         releasePlayer();
         playMedia();
         showNotification();
+
     }
 
 
@@ -273,7 +277,6 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
     public void onCuePointReceived(MediaPlayer mediaPlayer, Bundle cuePoint) {
         if (cuePoint == null) return;
 
-
         String cueType = cuePoint.getString("cue_type", null);
         if (cueType == null) return;
         switch (cueType) {
@@ -284,9 +287,10 @@ public class PlayerService extends Service implements TritonPlayer.OnCuePointRec
                     int duration = cuePoint.getInt("cue_time_duration", 0);
 
                     mCurrentTrack = new Track(song, artist, duration);
-
-                    mRemoteViews.setTextViewText(R.id.song_title, mCurrentTrack.getTitle());
-                    mRemoteViews.setTextViewText(R.id.station_artist, mCurrentTrack.getArtist());
+                    if (is_notification_active) {
+                        mRemoteViews.setTextViewText(R.id.song_title, mCurrentTrack.getTitle());
+                        mRemoteViews.setTextViewText(R.id.station_artist, mCurrentTrack.getArtist());
+                    }
 
                     if (mNotificationManager != null && mBuilder != null) {
                         mNotificationManager.notify(NOTIFICATION_SERVICE, mBuilder.build());

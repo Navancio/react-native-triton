@@ -113,7 +113,9 @@ class RNTritonPlayer {
     NativeRNTritonPlayer.quit();
   }
   static setNotificationStatus(status) {
-    NativeRNTritonPlayer.setNotificationStatus(status);
+    if (Platform.OS === 'android') {
+      NativeRNTritonPlayer.setNotificationStatus(status);
+    }
   }
 
   static addStreamChangeListener(callback) {

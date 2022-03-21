@@ -270,23 +270,23 @@ RCT_EXPORT_METHOD(quit)
 
 - (void)configureNowPlayingInfo
 {
-    MPNowPlayingInfoCenter* info = [MPNowPlayingInfoCenter defaultCenter];
-    NSMutableDictionary* newInfo = [NSMutableDictionary dictionary];
+    // MPNowPlayingInfoCenter* info = [MPNowPlayingInfoCenter defaultCenter];
+    // NSMutableDictionary* newInfo = [NSMutableDictionary dictionary];
     
-    // Set song title info
-    [newInfo setObject:self.title forKey:MPMediaItemPropertyTitle];
-    [newInfo setObject:self.track forKey:MPMediaItemPropertyArtist];
+    // // Set song title info
+    // [newInfo setObject:self.title forKey:MPMediaItemPropertyTitle];
+    // [newInfo setObject:self.track forKey:MPMediaItemPropertyArtist];
     
     
-    if (self.state == STATE_PAUSED) {
-        [newInfo setValue:[NSNumber numberWithDouble:0] forKey:MPNowPlayingInfoPropertyPlaybackRate];
-    } else if (self.state == STATE_PLAYING) {
-        [newInfo setValue:[NSNumber numberWithDouble:1] forKey:MPNowPlayingInfoPropertyPlaybackRate];
-    } else {
-        [newInfo setValue:[NSNumber numberWithDouble:0] forKey:MPNowPlayingInfoPropertyPlaybackRate];
-    }
-    // Update the now playing info
-    info.nowPlayingInfo = newInfo;
+    // if (self.state == STATE_PAUSED) {
+    //     [newInfo setValue:[NSNumber numberWithDouble:0] forKey:MPNowPlayingInfoPropertyPlaybackRate];
+    // } else if (self.state == STATE_PLAYING) {
+    //     [newInfo setValue:[NSNumber numberWithDouble:1] forKey:MPNowPlayingInfoPropertyPlaybackRate];
+    // } else {
+    //     [newInfo setValue:[NSNumber numberWithDouble:0] forKey:MPNowPlayingInfoPropertyPlaybackRate];
+    // }
+    // // Update the now playing info
+    // info.nowPlayingInfo = newInfo;
 }
 
 @end
